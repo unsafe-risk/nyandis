@@ -1,0 +1,21 @@
+@startuml Datas
+
+class Request {
+    byte[][] data
+    uint8[] type
+    uint8 method
+}
+
+class Response {
+    byte[][] data
+    uint8[] type
+    string error
+}
+
+class Instruction {
+    byte[] client
+    any[] data
+    uint8 method
+}
+
+@enduml
