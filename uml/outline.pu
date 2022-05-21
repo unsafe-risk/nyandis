@@ -19,7 +19,7 @@ Cores -right-> InstructionQueue: pull instruction
 Cores -left-> Trie: operate instruction
 Trie -right-> Cores: return result
 Cores -up-> Server: return result
-Cores -up-> BroadCaster: push result
+Cores -up-> BroadCaster: push instruction
 Server -right-> Client: return result
 BroadCaster -up-> AnotherNyandis: broadcast result over H2
 
