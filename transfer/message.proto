@@ -33,8 +33,9 @@ enum METHOD {
     STORE_LIST = 7;
     LOAD_LIST = 8;
     LOAD_LIST_ELEMENT_BY_INDEX = 9;
-    LOAD_LIST_ELEMENT_BY_RANGE = 10;
     DELETE_LIST_ELEMENT_BY_INDEX = 11;
+    PUSH_LIST_FRONT = 10;
+    PUSH_LIST_BACK = 40;
     POP_LIST_FRONT = 12;
     POP_LIST_BACK = 13;
 
@@ -45,7 +46,7 @@ enum METHOD {
 
     STORE_SET = 18;
     LOAD_SET = 19;
-    CONTAINERS_SET_ELEMENT = 20;
+    CONTAINS_SET_ELEMENT = 20;
     INTERSECT_SET = 21;
     UNION_SET = 22;
     DIFFERENCE_SET = 23;
@@ -62,10 +63,30 @@ enum METHOD {
 
     STORE_SORTED_SET = 33;
     LOAD_SORTED_SET = 34;
-    CONTAINERS_SORTED_SET_ELEMENT = 35;
+    CONTAINS_SORTED_SET_ELEMENT = 35;
     INTERSECT_SORTED_SET = 36;
     UNION_SORTED_SET = 37;
     DIFFERENCE_SORTED_SET = 38;
+}
+
+enum HANDSHAKE_METHOD {
+    ED25519 = 0;
+    SECP256R1 = 1;
+    SECP521R1 = 2;
+}
+
+enum ENCRYPTION_METHOD {
+    AES_GCM = 0;
+    AES_CBC = 1;
+    AES_CTR = 2;
+    CHACHA20_POLY1305 = 3;
+}
+
+enum OPERATION {
+    ADD = 0;
+    MINUS = 1;
+    INCREASE = 2;
+    DECREASE = 3;
 }
 
 message Login {
@@ -73,8 +94,183 @@ message Login {
     optional string password = 2;    
 }
 
-message Request {
+message RenewEnc {
+    HANDSHAKE_METHOD handshake_method = 1;
+    ENCRYPTION_METHOD encrption_method = 2;
+    bytes publickey = 3;
+}
+
+message RenewDec {
+    bytes publickey = 1;
+    string error = 2;
+}
+
+message DeleteKey {
     string key = 1;
-    METHOD method = 2;
-    bytes content = 3;
+}
+
+message StoreSingleObject {
+    string key = 1;
+    Object object = 2;
+}
+
+message LoadSingleObject {
+    string key = 1;
+}
+
+message OperateSingleObject {
+    string key = 1;
+    OPERATION operation = 2;
+    optional Object object = 3;
+}
+
+message StoreList {
+    string key = 1;
+    repeated Object object = 2;
+}
+
+message LoadList {
+    string key = 1;
+    optional int64 start = 2;
+    optional int64 end = 3;
+}
+
+message LoadListElementByIndex {
+    string key = 1;
+    int64 index = 2;
+}
+
+message DeleteListElementByIndex {
+    string key = 1;
+    int64 index = 2;
+}
+
+message PushListFront {
+    string key = 1;
+    Object object = 2;
+}
+
+message PushListBack {
+    string key = 1;
+    Object object = 2;
+}
+
+message PopListFront {
+    string key = 1;
+}
+
+message PopListBack {
+    string key = 1;
+}
+
+message StoreMap {
+    string key = 1;
+    repeated Object keys = 2;
+    repeated Object values = 3;
+}
+
+message StoreMapElementByKey {
+    string key = 1;
+    string key_object = 2;
+    Object value_object = 3;
+}
+
+message LoadMap {
+    string key = 1;
+    repeated string keys = 2;
+}
+
+message LoadMapElementByKey {
+    string key = 1;
+    string key_object = 2;
+}
+
+message StoreSet {
+    string key = 1;
+    repeated Object objects = 2;
+}
+
+message LoadSet {
+    string key = 1;
+}
+
+message ContainsSetElement {
+    string key = 1;
+    Object object = 2;
+}
+
+message IntersectSet {
+    string key = 1;
+    string another_key = 2;
+}
+
+message UnionSet {
+    string key = 1;
+    string another_key = 2;
+}
+
+message DifferenceSet {
+    string key = 1;
+    string another_key = 2;
+}
+
+message StoreQueue {
+    string key = 1;
+    repeated Object objects = 2;
+}
+
+message LoadQueue {
+    string key = 1;
+}
+
+message PushQueueElement {
+    string key = 1;
+    repeated Object object = 2;
+}
+
+message PopQueueElement {
+    string key = 1;
+    int64 count = 2;
+}
+
+message StoreStack {
+    string key = 1;
+    repeated Object objects = 2;
+}
+
+message LoadStack {
+    string key = 1;
+}
+
+message PushStackElement {
+    string key = 1;
+    repeated Object object = 2;
+}
+
+message PopStackElement {
+    string key = 1;
+    int64 count = 2;
+}
+
+message StoreSortedSet {
+    string key = 1;
+    repeated Object objects = 2;
+}
+
+message LoadSortedSet {
+    string key = 1;
+    optional int64 start = 2;
+    optional int64 end = 3;
+}
+
+message ContainsSortedSetElement {
+    string key = 1;
+    Object object = 2;
+}
+
+
+
+message Request {
+    METHOD method = 1;
+    bytes content = 2;
 }
