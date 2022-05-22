@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+option go_package = "./message";
+
+enum TYPE {
+    INTEGER = 0;
+    FLOAT = 1;
+    BYTES = 2;
+    STRING = 3;
+    BOOLEAN = 4;
+}
+
+message Object {
+    TYPE type = 1;
+    optional int64 int_value = 2;
+    optional double float_value = 3;
+    optional bytes bytes_value = 4;
+    optional string string_value = 5;
+    optional bool bool_value = 6;
+}
+
+enum METHOD {
+    LOGIN = 0;
+    RENEW_ENC = 1;
+    RENEW_DEC = 2;
+
+    DELETE_KEY = 3;
+
+    STORE_SINGLE_OBJECT = 4;
+    LOAD_SINGLE_OBJECT = 5;
+    OPERATE_SINGLE_OBJECT = 6;
+    
+    STORE_LIST = 7;
+    LOAD_LIST = 8;
+    LOAD_LIST_ELEMENT_BY_INDEX = 9;
+    LOAD_LIST_ELEMENT_BY_RANGE = 10;
+    DELETE_LIST_ELEMENT_BY_INDEX = 11;
+    POP_LIST_FRONT = 12;
+    POP_LIST_BACK = 13;
+
+    STORE_MAP = 14;
+    STORE_MAP_ELEMENT_BY_KEY = 15;
+    LOAD_MAP = 16;
+    LOAD_MAP_ELEMENT_BY_KEY = 17;
+
+    STORE_SET = 18;
+    LOAD_SET = 19;
+    CONTAINERS_SET_ELEMENT = 20;
+    INTERSECT_SET = 21;
+    UNION_SET = 22;
+    DIFFERENCE_SET = 23;
+
+    STORE_QUEUE = 25;
+    LOAD_QUEUE = 26;
+    PUSH_QUEUE_ELEMENT = 27;
+    POP_QUEUE_ELEMENT = 28;
+
+    STORE_STACK = 29;
+    LOAD_STACK = 30;
+    PUSH_STACK_ELEMENT = 31;
+    POP_STACK_ELEMENT = 32;
+
+    STORE_SORTED_SET = 33;
+    LOAD_SORTED_SET = 34;
+    CONTAINERS_SORTED_SET_ELEMENT = 35;
+    INTERSECT_SORTED_SET = 36;
+    UNION_SORTED_SET = 37;
+    DIFFERENCE_SORTED_SET = 38;
+}
+
+message Login {
+    optional string username = 1;
+    optional string password = 2;    
+}
+
+message Request {
+    string key = 1;
+    METHOD method = 2;
+    bytes content = 3;
+}
