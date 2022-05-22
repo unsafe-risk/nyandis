@@ -268,7 +268,20 @@ message ContainsSortedSetElement {
     Object object = 2;
 }
 
+message IntersectSortedSet {
+    string key = 1;
+    string another_key = 2;
+}
 
+message UnionSortedSet {
+    string key = 1;
+    string another_key = 2;
+}
+
+message DifferenceSortedSet {
+    string key = 1;
+    string another_key = 2;
+}
 
 message Request {
     METHOD method = 1;
