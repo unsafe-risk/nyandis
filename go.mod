@@ -3,7 +3,7 @@ module github.com/unsafe-risk/nyandis
 go 1.18
 
 require (
-	github.com/Workiva/go-datastructures v1.0.53
+	github.com/Workiva/go-datastructures v1.1.3
 	golang.org/x/crypto v0.0.0-20220817201139-bc19a97f63c8
 )
 
